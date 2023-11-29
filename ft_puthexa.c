@@ -12,19 +12,6 @@
 
 #include "printf.h"
 
-/*void ft_puthexa(int c , char ch)
-{	
-    if (c > 16)
-	{
-		ft_puthexa(c / 16);
-        ft_puthexa(c % 16);
-		
-	}
-	else if (c <= 16)
-	{
-		ft_putchar(c + 48);
-	}
-}*/
 int main()
 {
 	printf("%x", 123);
