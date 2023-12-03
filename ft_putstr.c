@@ -6,23 +6,25 @@
 /*   By: atahtouh <atahtouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 10:43:08 by atahtouh          #+#    #+#             */
-/*   Updated: 2023/11/28 11:06:00 by atahtouh         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:49:49 by atahtouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"printf.h"
+#include "ft_printf.h"
 
-void    ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
-    int i;
+	int	i;
+	int	c;
 
-    i = 0;
-
-    if (!s)
-        write(1,"NULL",4) ;
-    while (s[i] != '\0')
-    {
-       ft_putchar(s[i]);
-       i++;
-    }
+	c = 0;
+	i = 0;
+	if (!s)
+		return (ft_putstr("(null)"));
+	while (s[i] != '\0')
+	{
+		c += ft_putchar(s[i]);
+		i++;
+	}
+	return (c);
 }

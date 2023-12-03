@@ -6,55 +6,69 @@
 /*   By: atahtouh <atahtouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 20:55:22 by atahtouh          #+#    #+#             */
-/*   Updated: 2023/11/28 12:58:38 by atahtouh         ###   ########.fr       */
+/*   Updated: 2023/12/03 12:42:28 by atahtouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-void chec_format(va_list p, int c, int *len)
+int	chec_format(va_list pt, int c)
 {
+	int	cont;
+
+	cont = 0;
 	if (c == '%')
-		ft_putchar(c);
+		cont += ft_putchar(c);
 	else if (c == 'c')
-      ft_putchar(va_arg(p,int));
+		cont += ft_putchar(va_arg(pt, int));
 	else if (c == 's')
-		ft_putstr(va_arg(p,char *));
+		cont += ft_putstr(va_arg(pt, char *));
 	else if (c == 'i' || c == 'd')
-		ft_putnbr(va_arg(p, int));
+		cont += ft_putnbr(va_arg(pt, int));
 	else if (c == 'X' || c == 'x')
-		ft_puthexa(va_arg(p, int), c);
+		cont += ft_puthexa(va_arg(pt, unsigned int), c);
+	else if (c == 'p')
+	{
+		cont += ft_putstr ("0x");
+		cont += ft_putadd((va_arg(pt, unsigned long long)), 'x');
+	}
+	else if (c == 'u')
+		cont += ft_putunsigned(va_arg(pt, unsigned int));
+	return (cont);
 }
 
-int ft_printf(const char *s, ...)
+int	ft_printf(const char *s, ...)
 {
-	int i;
-	int result;
+	int		i;
+	int		result;
+	va_list	ptr;
 
 	i = 0;
-	
-	va_list ptr;
 	result = 0;
-	va_start(ptr,s);
-	
+	va_start(ptr, s);
 	while (s[i])
 	{
-		if(s[i] == '%')
+		if (s[i] == '%')
 		{
 			i++;
-			chec_format(ptr, s[i],&result);
+			result += chec_format(ptr, s[i]);
 		}
 		else
 		{
-			ft_putchar(s[i]);
+			ft_putchar (s[i]);
 			result++;
 		}
-		va_end(ptr);
 		i++;
 	}
-	return(result);
+	va_end (ptr);
+	return (result);
 }
+
 int main ()
 {
-	ft_printf("nombre %x de %s est %c",12345,"asmae",'a');
+	int i;
+
+	
+	i = ft_printf("hello %");
+	printf("%d",i);
 }
